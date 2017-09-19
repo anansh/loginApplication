@@ -8,4 +8,4 @@ import com.example.main.model.Role;
 @Repository("roleRepository")
 public interface RoleRepository extends CrudRepository<Role, Integer> {
 	Role findByRole(String role);
-}
+} 
