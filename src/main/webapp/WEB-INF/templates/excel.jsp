@@ -13,10 +13,6 @@
 </head>
 
 <body>
-	<form action="logout" method="get">
-		<button class="btn btn-md btn-danger btn-block" name="registration"
-			type="Submit">Logout</button>
-	</form>
 	<img src="images/login.jpg" class="img-responsive center-block"
 		width="300" height="300" alt="Logo" />
 	<div class="container">

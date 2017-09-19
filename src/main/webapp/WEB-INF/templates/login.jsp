@@ -17,7 +17,7 @@
 	<div class="container">
 		<img src="images/login.jpg" class="img-responsive center-block" width="300" height="300" alt="Logo" />
 		<form action="login" method="POST" class="form-signin">
-			<h3 class="form-signin-heading" text="Welcome"></h3>
+			<h3 class="form-signin-heading"></h3>
 			<br/>
 			 
 			<input type="text" id="email" name="email"  placeholder="Email"
