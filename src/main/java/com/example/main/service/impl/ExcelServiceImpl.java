@@ -11,8 +11,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.example.main.dao.ExtractDAO;
 import com.example.main.dao.RoleDAO;
 import com.example.main.model.Role;
 import com.example.main.service.ExcelService;
@@ -21,6 +24,9 @@ import com.example.main.service.ExcelService;
 public class ExcelServiceImpl implements ExcelService {
 	@Autowired
 	private RoleDAO roleDao;
+	
+	ApplicationContext context = 
+    		new ClassPathXmlApplicationContext("Spring-Module.xml");
 
 	@Override
 	public void readExcel(String exSheet) {
@@ -54,8 +60,8 @@ public class ExcelServiceImpl implements ExcelService {
 				String sourceRule2 = row.getCell(3).getRichStringCellValue().toString();
 				String sourceRule3 = row.getCell(4).getRichStringCellValue().toString();
 				try {
-					String booleanResult = buildMyQuery(entity, parameter, sourceRule1, sourceRule2, sourceRule3);
-					writeExcel(booleanResult, exSheet, i);
+					boolean booleanResult = buildMyQuery(entity, parameter, sourceRule1, sourceRule2, sourceRule3);
+					writeExcel(Boolean.toString(booleanResult), exSheet, i);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -72,21 +78,17 @@ public class ExcelServiceImpl implements ExcelService {
 	}
 
 	@Override
-	public String buildMyQuery(String parameter1, String parameter2, String expression, String sourceRule2,
+	public boolean buildMyQuery(String parameter1, String parameter2, String expression, String sourceRule2,
 			String sourceRule3) {
-		String finalResult = "true";
-
+		
 		if (parameter2 == null || parameter2 == "" || parameter2.equals("")) {
 			parameter2 = "*";
 		}
 
 		String mySql = "Select " + parameter2 + " from " + parameter1 + " where " + expression;
 		System.out.println(mySql);
-
-		int role_id = 1;
-		System.out.println(roleDao);
-		Role role = roleDao.getRoleDetailsById(role_id);
-		System.out.println(role);
+		ExtractDAO extractDAO = (ExtractDAO) context.getBean("extractDAO");
+		boolean finalResult = extractDAO.getRoleDetailsById(mySql);
 		return finalResult;
 	}
 
