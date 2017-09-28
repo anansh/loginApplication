@@ -74,11 +74,10 @@ public class ExcelServiceImpl implements ExcelService {
 	@Override
 	public boolean buildMyQuery(String expression, String groupBy, String OrderBy) {
 
-		expression.toString().contains("[");
-
 		String newExpression = (expression.replace("{", "").replace("]", "").replace("[", "").replace(")", "")
 				.replace("(", "").replace("}", "").replace("&&", " AND ").replace("||", " OR ").replace("!=", " <> ")
-				.replace("==", " = ").replace("=", " = ").replaceAll("“", "'").replaceAll("”", "'")).toString();
+				.replace("==", " = ").replace("=", " = ").replace(";", "").replaceAll("“", "'").replaceAll("”", "'"))
+						.toString();
 
 		String[] splited = newExpression.split("\\s+|=");
 		String[] hashedTable = null;
