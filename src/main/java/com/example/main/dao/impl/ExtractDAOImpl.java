@@ -23,6 +23,7 @@ public class ExtractDAOImpl extends JdbcDaoSupport implements ExtractDAO{
 		if(temp > 0) {
 			returnValue = true;
 		}
+		System.out.println(returnValue);
 		return returnValue;
 	}
 

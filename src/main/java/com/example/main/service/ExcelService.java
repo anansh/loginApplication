@@ -5,6 +5,5 @@ public interface ExcelService {
 
 	public void writeExcel(String booleanResult, String exSheet, int rowNum);
 
-	public boolean buildMyQuery(String parameter1, String parameter2, String expression, String sourceRule2,
-			String sourceRule3);
+	public boolean buildMyQuery(String expression, String groupBy, String OrderBy);
 }

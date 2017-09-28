@@ -4,9 +4,21 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	
+	
+		<!-- For MySQL -->
+		
+		<!-- <property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/accounts" />
 		<property name="username" value="root" />
+		<property name="password" value="root" /> -->
+		
+		
+		<!-- For Oracle -->
+		
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521/xe" />
+		<property name="username" value="system" />
 		<property name="password" value="root" />
 	</bean>
 
