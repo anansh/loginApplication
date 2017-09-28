@@ -16,14 +16,17 @@ public class ExtractDAOImpl extends JdbcDaoSupport implements ExtractDAO{
 		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(query);
 		int temp = 0;
 		for (Map<String, Object> row : rows) {
-			System.out.println(row);
-			temp++;
+			String count = row.get("count(*)").toString();
+			if(count.toString().equals("0") || count.toString() == "0") {
+				
+			} else {
+				temp++;
+			}
 		}
 
 		if(temp > 0) {
 			returnValue = true;
 		}
-		System.out.println(returnValue);
 		return returnValue;
 	}
 

@@ -108,14 +108,13 @@ public class ExcelServiceImpl implements ExcelService {
 
 		System.out.println(query);
 		ExtractDAO extractDAO = (ExtractDAO) context.getBean("extractDAO");
-		boolean finalResult =extractDAO.getRoleDetailsById(query);
+		boolean finalResult = extractDAO.getRoleDetailsById(query);
 		return finalResult;
 	}
 
 	@Override
 	public void writeExcel(String booleanResult, String exSheet, int rowNum) {
 		Workbook workbook = null;
-		// System.out.println("booleanResult : " + booleanResult);
 		FileInputStream inputStream = null;
 		FileOutputStream outputStream = null;
 		try {
@@ -125,10 +124,9 @@ public class ExcelServiceImpl implements ExcelService {
 			Cell cell2Update = sheet.getRow(rowNum).getCell(3);
 			Row sheetrow = sheet.getRow(rowNum);
 			if (cell2Update == null) {
-				System.out.println(cell2Update);
 				cell2Update = sheetrow.createCell(3);
-				System.out.println(cell2Update);
 			}
+			System.out.println("Boolean result value : " + booleanResult);
 			cell2Update.setCellValue(booleanResult);
 			outputStream = new FileOutputStream(new File(exSheet));
 			workbook.write(outputStream);
