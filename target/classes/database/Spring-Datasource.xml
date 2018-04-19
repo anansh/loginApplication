@@ -1,25 +1,28 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	
-	
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+
 		<!-- For MySQL -->
-		
-		<!-- <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/accounts" />
+
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://172.16.1.3:3306/accounts" />
 		<property name="username" value="root" />
-		<property name="password" value="root" /> -->
-		
-		
+		<property name="password" value="diksha123" />
+
+
 		<!-- For Oracle -->
-		
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521/xe" />
-		<property name="username" value="system" />
-		<property name="password" value="root" />
+
+		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" 
+			/> <property name="url" value="jdbc:oracle:thin:@localhost:1521/xe" /> <property 
+			name="username" value="system" /> <property name="password" value="root" 
+			/> -->
 	</bean>
 
 </beans>
