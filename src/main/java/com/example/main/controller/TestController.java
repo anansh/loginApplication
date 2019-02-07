@@ -7,14 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.main.model.Role;
 import com.example.main.model.User;
-import com.example.main.repository.UserRepository;
+import com.example.main.service.RoleService;
+import com.example.main.service.UserService;
 
 @RestController
 public class TestController {
 
 	@Autowired
-	UserRepository userRepository;
+	UserService userService;
+	
+	@Autowired
+	RoleService roleService;
 
 	@RequestMapping("/welcome")
 	public String welcome() {
@@ -23,6 +28,11 @@ public class TestController {
 
 	@GetMapping("/allUsers")
 	public List<User> getAllUsers() {
-		return userRepository.findAll();
+		return userService.findAll();
+	}
+	
+	@GetMapping("/allRoles")
+	public List<Role> getAllRoles() {
+		return roleService.findAll();
 	}
 }
