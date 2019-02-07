@@ -12,9 +12,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://172.16.1.3:3306/accounts" />
-		<property name="username" value="root" />
-		<property name="password" value="diksha123" />
+			value="jdbc:mysql://172.16.1.40:3306/DIKSHA_PORTAL_TST" />
+		<property name="username" value="lynx_tst_user" />
+		<property name="password" value="Testserver@Diksha" />
 
 
 		<!-- For Oracle -->

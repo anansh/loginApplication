@@ -1,9 +1,11 @@
 package com.example.main.service;
 
+import java.util.List;
+
 import com.example.main.model.User;
 
 public interface UserService {
-	public User findUserByEmail(String email);
+	public User findUserById(int userId);
 
-	public void saveUser(User user);
+	List<User> findAll();
 }
