@@ -19,4 +19,14 @@ public class RoleServiceImpl implements RoleService {
 	public List<Role> findAll() {
 		return roleRepository.findAll();
 	}
+
+	@Override
+	public Role findRoleNativeQuery() {
+		return roleRepository.findRoleByNativeQuery();
+	}
+
+	@Override
+	public Role findRoleByRoleId(int roleId) {
+		return roleRepository.findRoleByRoleId(roleId);
+	}
 }

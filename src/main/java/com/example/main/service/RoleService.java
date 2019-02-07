@@ -8,4 +8,8 @@ public interface RoleService {
 
 	List<Role> findAll();
 
+	Role findRoleNativeQuery();
+
+	Role findRoleByRoleId(int roleId);
+
 }
