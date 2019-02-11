@@ -10,8 +10,11 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.springframework.stereotype.Service;
+
 import com.example.main.service.AESDecryptorService;
 
+@Service("aesDecryptor")
 public class AESDecryptorImpl implements AESDecryptorService {
 
 	private static String secretKey = "dikshaTech";
