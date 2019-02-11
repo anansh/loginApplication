@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.main.model.Role;
 import com.example.main.model.User;
+import com.example.main.service.AESDecryptor;
 import com.example.main.service.RoleService;
 
 @RestController
@@ -19,6 +20,9 @@ public class TestController {
 
 	@Autowired
 	RoleService roleService;
+
+	@Autowired
+	AESDecryptor aesDecryptor;
 
 	@RequestMapping("/welcome")
 	public String welcome() {
@@ -42,6 +46,13 @@ public class TestController {
 
 	@RequestMapping("/getRoleByRoleIdQueryString")
 	public Role getRoleByRoleID1(@RequestParam Integer id) {
+		return roleService.findRoleByRoleId(id);
+	}
+
+	@RequestMapping("/getRoleByRoleIdWithSession")
+	public Role getRoleByRoleIDSession(@RequestParam Integer id, @RequestParam String sessionString) {
+		String loginUserId = aesDecryptor.decryptThisKey(sessionString).split("~")[0];
+		System.out.println("loginUserId : " + loginUserId);
 		return roleService.findRoleByRoleId(id);
 	}
 
