@@ -10,9 +10,9 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.example.main.service.AESDecryptor;
+import com.example.main.service.AESDecryptorService;
 
-public class AESDecryptorImpl implements AESDecryptor {
+public class AESDecryptorImpl implements AESDecryptorService {
 
 	private static String secretKey = "dikshaTech";
 	private static String salt = "prayaJava";

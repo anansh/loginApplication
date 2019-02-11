@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.main.model.Company;
 import com.example.main.model.Role;
 import com.example.main.model.User;
-import com.example.main.service.AESDecryptor;
+import com.example.main.service.AESDecryptorService;
+import com.example.main.service.CompanyService;
 import com.example.main.service.RoleService;
 
 @RestController
@@ -22,7 +24,10 @@ public class TestController {
 	RoleService roleService;
 
 	@Autowired
-	AESDecryptor aesDecryptor;
+	AESDecryptorService aesDecryptor;
+
+	@Autowired
+	CompanyService companyService;
 
 	@RequestMapping("/welcome")
 	public String welcome() {
@@ -47,6 +52,11 @@ public class TestController {
 	@RequestMapping("/getRoleByRoleIdQueryString")
 	public Role getRoleByRoleID1(@RequestParam Integer id) {
 		return roleService.findRoleByRoleId(id);
+	}
+
+	@RequestMapping("/getCompanyData")
+	public List<Company> getAllCompanies() {
+		return companyService.getAllCompanies();
 	}
 
 	@RequestMapping("/getRoleByRoleIdWithSession")
