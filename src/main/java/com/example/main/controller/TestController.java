@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import com.example.main.model.Company;
+import com.example.main.model.ProfileInfo;
 import com.example.main.model.Role;
 import com.example.main.model.User;
+import com.example.main.model.Users;
 import com.example.main.service.AESDecryptorService;
 import com.example.main.service.CompanyService;
+import com.example.main.service.ProfileInfoService;
 import com.example.main.service.RoleService;
+import com.example.main.service.UsersService;
 
 @RestController
 public class TestController {
@@ -27,6 +31,12 @@ public class TestController {
 
 	@Autowired
 	CompanyService companyService;
+
+	@Autowired
+	UsersService usersService;
+
+	@Autowired
+	ProfileInfoService profileInfoService;
 
 	@RequestMapping("/welcome")
 	public String welcome() {
@@ -59,10 +69,21 @@ public class TestController {
 	}
 
 	@RequestMapping("/getRoleByRoleIdWithSession")
-	public Role getRoleByRoleIDSession(@RequestParam Integer id, @RequestParam String sessionString) {
+	public String getRoleByRoleIDSession(@RequestParam String sessionString) {
 		String loginUserId = aesDecryptor.decryptThisKey(sessionString).split("~")[0];
-		System.out.println("loginUserId : " + loginUserId);
-		return roleService.findRoleByRoleId(id);
+		Users users = usersService.findUsersById(Integer.parseInt(loginUserId));
+		ProfileInfo profileInfo = profileInfoService.getProfileInfoById(users.getProfile_id());
+		return "Hi " + profileInfo.getFirstName() + " " + profileInfo.getLastName() + ", Welcome to Rest API";
+	}
+
+	@RequestMapping("/getAllUsers")
+	public List<Users> getAllUsers() {
+		return usersService.findAll();
+	}
+
+	@RequestMapping("/getUserById")
+	public Users getUsersById(@RequestParam Integer userId) {
+		return usersService.findUsersById(userId);
 	}
 
 	@RequestMapping("/getMovieString")
