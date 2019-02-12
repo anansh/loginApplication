@@ -17,6 +17,17 @@ public class Role {
 	@Column(name = "role")
 	private String role;
 
+	@Column(name = "sal")
+	private String salary;
+
+	public String getSalary() {
+		return salary;
+	}
+
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+
 	public int getId() {
 		return id;
 	}

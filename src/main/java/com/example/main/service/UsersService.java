@@ -9,5 +9,4 @@ public interface UsersService {
 	List<Users> findAll();
 
 	Users findUsersById(int id);
-
 }

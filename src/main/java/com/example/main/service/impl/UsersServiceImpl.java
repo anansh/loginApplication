@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.main.model.DynamicModel;
 import com.example.main.model.Users;
 
 import com.example.main.repository.UsersRepository;

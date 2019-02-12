@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -38,7 +39,7 @@ public class TestController {
 	@Autowired
 	ProfileInfoService profileInfoService;
 
-	@RequestMapping("/welcome")
+	@GetMapping("/welcome")
 	public String welcome() {
 		return "This is something";
 	}
@@ -53,22 +54,32 @@ public class TestController {
 		return roleService.findRoleNativeQuery();
 	}
 
-	@RequestMapping("/getRoleByRoleId/{id}")
+	@GetMapping("/getRoleByRoleId/{id}")
 	public Role getRoleByRoleId(@PathVariable Integer id) {
 		return roleService.findRoleByRoleId(id);
 	}
 
-	@RequestMapping("/getRoleByRoleIdQueryString")
+	@GetMapping("/getRoleByRoleName")
+	public List<Role> getRoleByRoleName(@RequestParam String role) {
+		return roleService.findByRole(role);
+	}
+
+	@GetMapping("/getRoleByRoleSalary")
+	public List<Role> getRoleByRoleSalary(@RequestParam String salary) {
+		return roleService.findBySalary(salary);
+	}
+
+	@GetMapping("/getRoleByRoleIdQueryString")
 	public Role getRoleByRoleID1(@RequestParam Integer id) {
 		return roleService.findRoleByRoleId(id);
 	}
 
-	@RequestMapping("/getCompanyData")
+	@GetMapping("/getCompanyData")
 	public List<Company> getAllCompanies() {
 		return companyService.getAllCompanies();
 	}
 
-	@RequestMapping("/getRoleByRoleIdWithSession")
+	@GetMapping("/getRoleByRoleIdWithSession")
 	public String getRoleByRoleIDSession(@RequestParam String sessionString) {
 		String loginUserId = aesDecryptor.decryptThisKey(sessionString).split("~")[0];
 		Users users = usersService.findUsersById(Integer.parseInt(loginUserId));
@@ -76,26 +87,31 @@ public class TestController {
 		return "Hi " + profileInfo.getFirstName() + " " + profileInfo.getLastName() + ", Welcome to Rest API";
 	}
 
-	@RequestMapping("/getAllUsers")
+	@GetMapping("/getAllUsers")
 	public List<Users> getAllUsers() {
 		return usersService.findAll();
 	}
 
-	@RequestMapping("/getUserById")
+	@GetMapping("/getUserById")
 	public Users getUsersById(@RequestParam Integer userId) {
 		return usersService.findUsersById(userId);
 	}
 
-	@RequestMapping("/getMovieString")
+	@GetMapping("/getMovieString")
 	public String getMovieCatalog() {
 		RestTemplate restTemplate = new RestTemplate();
 		return restTemplate.getForObject("http://localhost:8889/welcome", String.class);
 	}
 
-	@RequestMapping("/getEmployeeByUserId")
+	@GetMapping("/getEmployeeByUserId")
 	public User getAllEmployees(@RequestParam Integer userId) {
 		RestTemplate restTemplate = new RestTemplate();
 		User user = restTemplate.getForObject("http://localhost:8889/getAllEmployee?userId=" + userId, User.class);
 		return user;
+	}
+
+	@PostMapping("")
+	public void addRole(@ModelAttribute("role") Role role) {
+
 	}
 }

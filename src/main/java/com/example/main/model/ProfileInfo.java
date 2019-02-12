@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,16 +16,28 @@ public class ProfileInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
-	protected int id;
+	private int id;
 
 	@Column(name = "FIRST_NAME")
-	protected String firstName;
+	private String firstName;
 
 	@Column(name = "MIDDLE_NAME")
-	protected String middleName;
+	private String middleName;
 
 	@Column(name = "LAST_NAME")
-	protected String lastName;
+	private String lastName;
+
+	@OneToOne
+	@JoinColumn(name = "ID", referencedColumnName = "profile_id")
+	private Users users;
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
 
 	public int getId() {
 		return id;

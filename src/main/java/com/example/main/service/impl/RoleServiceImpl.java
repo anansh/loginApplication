@@ -29,4 +29,24 @@ public class RoleServiceImpl implements RoleService {
 	public Role findRoleByRoleId(int roleId) {
 		return roleRepository.findRoleByRoleId(roleId);
 	}
+
+	@Override
+	public void add(Role role) {
+		roleRepository.save(role);
+	}
+
+	@Override
+	public void delete(Role role) {
+		roleRepository.delete(role.getId());
+	}
+
+	@Override
+	public List<Role> findByRole(String role) {
+		return roleRepository.findByRole(role);
+	}
+
+	@Override
+	public List<Role> findBySalary(String salary) {
+		return roleRepository.findBySalary(salary);
+	}
 }

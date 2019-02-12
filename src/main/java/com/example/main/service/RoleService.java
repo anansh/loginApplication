@@ -12,4 +12,11 @@ public interface RoleService {
 
 	Role findRoleByRoleId(int roleId);
 
+	void add(Role role);
+
+	void delete(Role role);
+
+	List<Role> findByRole(String role);
+
+	List<Role> findBySalary(String salary);
 }
