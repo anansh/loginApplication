@@ -2,23 +2,29 @@ package com.example.main.controller;
 
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import com.example.main.exception.DataNotFoundException;
 import com.example.main.model.Company;
 import com.example.main.model.ProfileInfo;
 import com.example.main.model.Role;
+import com.example.main.model.TempTable;
 import com.example.main.model.User;
 import com.example.main.model.Users;
+import com.example.main.request.TempRequest;
 import com.example.main.service.AESDecryptorService;
 import com.example.main.service.CompanyService;
 import com.example.main.service.ProfileInfoService;
 import com.example.main.service.RoleService;
+import com.example.main.service.TempService;
 import com.example.main.service.UsersService;
 
 @RestController
@@ -38,6 +44,9 @@ public class TestController {
 
 	@Autowired
 	ProfileInfoService profileInfoService;
+
+	@Autowired
+	TempService tempService;
 
 	@GetMapping("/welcome")
 	public String welcome() {
@@ -110,8 +119,26 @@ public class TestController {
 		return user;
 	}
 
-	@PostMapping("")
-	public void addRole(@ModelAttribute("role") Role role) {
+	@PostMapping("/addData")
+	public void addData(@RequestBody TempRequest tempRequest) {
+		TempTable tempTable = new TempTable();
+		try {
+			BeanUtils.copyProperties(tempTable, tempRequest);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tempService.insertIntoTemp(tempTable);
+	}
+
+	@GetMapping("/getOneData/{id}")
+	public TempTable getOneData(@PathVariable int id) {
+		TempTable received = tempService.getOneData(id);
+
+		if (received == null) {
+			throw new DataNotFoundException("Data not available");
+		} else {
+			return received;
+		}
 
 	}
 }
