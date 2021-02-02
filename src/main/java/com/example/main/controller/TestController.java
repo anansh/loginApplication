@@ -1,9 +1,15 @@
 package com.example.main.controller;
 
+import java.net.URI;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.main.exception.DataNotFoundException;
 import com.example.main.model.Company;
@@ -35,6 +42,9 @@ public class TestController {
 
 	@Autowired
 	AESDecryptorService aesDecryptor;
+
+	@Autowired
+	MessageSource messageSource;
 
 	@Autowired
 	CompanyService companyService;
@@ -120,14 +130,18 @@ public class TestController {
 	}
 
 	@PostMapping("/addData")
-	public void addData(@RequestBody TempRequest tempRequest) {
+	public ResponseEntity<Object> addData(@Valid @RequestBody TempRequest tempRequest) {
 		TempTable tempTable = new TempTable();
 		try {
 			BeanUtils.copyProperties(tempTable, tempRequest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		tempService.insertIntoTemp(tempTable);
+		TempTable tempResponse = tempService.insertIntoTemp(tempTable);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(tempResponse.getId()).toUri();
+
+		return ResponseEntity.created(location).build();
 	}
 
 	@GetMapping("/getOneData/{id}")
@@ -139,6 +153,23 @@ public class TestController {
 		} else {
 			return received;
 		}
+	}
 
+	@GetMapping("/getAllData")
+	public List<TempTable> createEntity() {
+		return tempService.retriveAllUsers();
+	}
+
+	@DeleteMapping("/deleteOneData/{id}")
+	public void deleteOneData(@PathVariable int id) {
+		TempTable received = tempService.deleteOneData(id);
+		if (received == null) {
+			throw new DataNotFoundException("Data not available");
+		}
+	}
+
+	@GetMapping("/locale")
+	public String locale() {
+		return "locale";
 	}
 }
