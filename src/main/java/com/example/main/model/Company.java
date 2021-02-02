@@ -17,7 +17,7 @@ public class Company {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	protected int id;
-
+ 
 	@Column(name = "COMPANY_NAME")
 	protected String companyName;
 
