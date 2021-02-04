@@ -1,8 +1,11 @@
 package com.example.main.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -30,4 +33,10 @@ public class TempTable {
 
 	@Column
 	private String h2hCovered;
+
+	@Column
+	private int temp_details_id;
+
+	@OneToMany(mappedBy = "tempTable")
+	private List<TempDetails> tempDetails;
 }

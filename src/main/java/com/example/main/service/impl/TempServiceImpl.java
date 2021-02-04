@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.main.model.TempDetails;
 import com.example.main.model.TempTable;
+import com.example.main.repository.TempDetailsRepository;
 import com.example.main.repository.TempRepository;
 import com.example.main.service.TempService;
 
@@ -14,10 +16,17 @@ public class TempServiceImpl implements TempService {
 
 	@Autowired
 	TempRepository tempRepository;
+	
+	@Autowired
+	TempDetailsRepository tempDetailsRepository;
 
 	@Override
 	public TempTable insertIntoTemp(TempTable tempTable) {
 		TempTable tmpTbl = tempRepository.save(tempTable);
+		TempDetails tmpDetails = new TempDetails();
+		tmpDetails.setId(tmpTbl.getTemp_details_id());
+		tmpDetails.setTempName("Test");
+		tempDetailsRepository.save(tmpDetails);
 		return tmpTbl;
 	}
 
