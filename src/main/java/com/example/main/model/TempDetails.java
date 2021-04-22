@@ -33,4 +33,36 @@ public class TempDetails {
 
 	@Column(name = "temp_name")
 	private String tempName;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public TempTable getTempTable() {
+		return tempTable;
+	}
+
+	public void setTempTable(TempTable tempTable) {
+		this.tempTable = tempTable;
+	}
+
+	public String getTempDetailsId() {
+		return tempDetailsId;
+	}
+
+	public void setTempDetailsId(String tempDetailsId) {
+		this.tempDetailsId = tempDetailsId;
+	}
+
+	public String getTempName() {
+		return tempName;
+	}
+
+	public void setTempName(String tempName) {
+		this.tempName = tempName;
+	}
 }
